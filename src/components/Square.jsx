@@ -7,8 +7,9 @@ function Square({ value, handleClick, isInitial }) {
         <div 
             onClick={handleClick} 
             className={`
-                w-10 h-10 
+                w-14 h-14 
                 border border-b-gray-600
+                select-none
                 flex items-center justify-center
                 ${isInitial ? 'font-bold cursor-not-allowed' : 'cursor-pointer'}
             `}
