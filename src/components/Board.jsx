@@ -16,8 +16,8 @@ export default function Board({ dimension = 9, data }) {
         console.log(`Clicked on row ${rowIndex}, col ${colIndex}`);
         if (!grid[rowIndex][colIndex].isInitial) {
             const newGrid = [...grid];
-            
-            if (newGrid[rowIndex][colIndex].value === null) {
+
+            if (newGrid[rowIndex][colIndex].value === '-') {
                 newGrid[rowIndex][colIndex] = {
                     ...newGrid[rowIndex][colIndex],
                     value: 1
@@ -28,7 +28,7 @@ export default function Board({ dimension = 9, data }) {
                     value: (newGrid[rowIndex][colIndex].value + 1) % (dimension + 1) || 1
                 };
             }
-            
+
             setGrid(newGrid);
             // transform the grid to a 2D array
             const transformedGrid = newGrid.map(row => row.map(cell => cell.value));
@@ -71,21 +71,26 @@ export default function Board({ dimension = 9, data }) {
 
 
     return (
-        <div className='flex flex-col items-center justify-center h-screen '>
-            {
-                grid.map((row, rowIndex) => (
-                    <div key={rowIndex} className='flex'>
-                        {row.map((cell, colIndex) => (
-                            <Square
-                                key={colIndex}
-                                value={cell.value}
-                                handleClick={!cell.isInitial ? () => handleClick(rowIndex, colIndex) : undefined}
-                                isInitial={cell.isInitial}
-                            />
-                        ))}
-                    </div>
-                ))
-            }
+        <div className='flex flex-col items-center justify-center h-screen'>
+            <div className="border-2 border-gray-600 bg-white">
+                {
+                    grid.map((row, rowIndex) => (
+                        <div key={rowIndex} className='flex'>
+                            {row.map((cell, colIndex) => (
+                                <Square
+                                    key={colIndex}
+                                    value={cell.value}
+                                    handleClick={!cell.isInitial ? () => handleClick(rowIndex, colIndex) : undefined}
+                                    isInitial={cell.isInitial}
+                                    rowIndex={rowIndex}
+                                    colIndex={colIndex}
+                                />
+                            ))}
+                        </div>
+                    ))
+                }
+            </div>
+
 
         </div>
 

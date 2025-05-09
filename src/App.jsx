@@ -1,11 +1,24 @@
 import { useState } from 'react'
 import Square from './components/Square'
 import Board from './components/Board'
-import { testBoard } from './utils/boards.js'
+
 import './App.css'
+import { getSudoku } from 'sudoku-gen';
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [sudoku, setSudoku] = useState(getSudoku('easy'));
+  const [difficulty, setDifficulty] = useState('easy');
+
+
+
+  
+  //console.log(sudoku);
+
+  function newGame() {
+    const newSudoku = getSudoku(difficulty);
+    setSudoku(newSudoku);
+    console.log('new game');
+  }
 
   return (
     <>
@@ -15,7 +28,21 @@ function App() {
         </header>
 
         <main>
-          <Board data={testBoard} />
+          <div className='flex justify-center mt-4 gap-4'>
+            <button className='bg-blue-500 text-white p-2 rounded-md' onClick={newGame}>New Game</button>
+            <button className='bg-blue-500 text-white p-2 rounded-md'>Restart Game</button>
+            <select name="difficulty" id="" onChange={(e) => {
+              setDifficulty(e.target.value);
+              //console.log(e.target.value);
+            }}>
+              <option value="easy">Easy</option>
+              <option value="medium">Medium</option>
+
+              <option value="hard">Hard</option>
+              <option value="expert">Expert</option>
+            </select>
+          </div>
+          <Board data={sudoku} />
         </main>
 
 

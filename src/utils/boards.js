@@ -1,21 +1,28 @@
-export const testBoard = [
-    [null, null, 7, 5, null, null, 6, null, 3],
-    [4, 3, null, null, null, 6, null, null, 5],
-    [6, null, 8, 1, null, 9, null, 2, 7],
-    [2, null, 6, 4, 5, null, null, null, null],
-    [null, null, 1, null, 6, null, 3, 4, null],
-    [7, null, null, null, null, 8, null, 5, null],
-    [8, null, null, 7, null, null, 1, 3, null],
-    [null, 7, 4, null, 2, null, 5, 9, null],
-    [1, null, 9, 3, null, 5, null, null, null]
-];
-
-export const transformToGrid = (board) => {
-    return board.map(row => {
-        return row.map(cell => {
-            return { value: cell, isInitial: cell !== null };
-        });
-    });
+export function transformToGrid(sudokuData) {
+  if (!sudokuData || !sudokuData.puzzle) {
+    return [];
+  }
+  
+  const puzzleString = sudokuData.puzzle;
+  const dimension = 9; // Standard sudoku size
+  const grid = [];
+  
+  // Create 2D array with objects
+  for (let i = 0; i < dimension; i++) {
+    const row = [];
+    for (let j = 0; j < dimension; j++) {
+      const index = i * dimension + j;
+      const char = puzzleString[index];
+      
+      row.push({
+        value: char, // Keep as character, don't convert to number yet
+        isInitial: char !== '-' // Still use this to determine if it's an initial value
+      });
+    }
+    grid.push(row);
+  }
+  
+  return grid;
 }
 
 
