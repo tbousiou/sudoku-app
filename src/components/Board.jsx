@@ -1,67 +1,53 @@
 import React from 'react'
 import Square from './Square'
-import { useState } from 'react';
-import { transformToGrid, isSudokuSolved } from '../utils/boards.js';
+import { useState, useEffect } from 'react';
+import { transformToBoard, isSudokuSolved } from '../utils/utils.js';
 
 
+export default function Board({ dimension = 9, initialSudoku, onSolved }) {
 
+    const initialBoard = transformToBoard(initialSudoku);
 
-export default function Board({ dimension = 9, data }) {
+    const [board, setBoard] = useState(initialBoard);
 
-    const initial_grid = transformToGrid(data);
-
-    const [grid, setGrid] = useState(initial_grid);
+    // Update the board state whenever the `initial_sudoku` prop changes
+    useEffect(() => {
+        //console.log('Received new sudoku puzzle:', board);
+        const newBoard = transformToBoard(initialSudoku);
+        setBoard(newBoard);
+        // console.log('Updated board:', newBoard);
+    }, [initialSudoku]);
 
     function handleClick(rowIndex, colIndex) {
-        console.log(`Clicked on row ${rowIndex}, col ${colIndex}`);
-        if (!grid[rowIndex][colIndex].isInitial) {
-            const newGrid = [...grid];
+        // console.log(`Clicked on row ${rowIndex}, col ${colIndex}`);
+        if (!board[rowIndex][colIndex].isInitial) {
+            const newBoard = [...board];
 
-            if (newGrid[rowIndex][colIndex].value === '-') {
-                newGrid[rowIndex][colIndex] = {
-                    ...newGrid[rowIndex][colIndex],
+            if (newBoard[rowIndex][colIndex].value === null) {
+                console.log('Setting value to 1');
+                newBoard[rowIndex][colIndex] = {
+                    ...newBoard[rowIndex][colIndex],
                     value: 1
                 };
             } else {
-                newGrid[rowIndex][colIndex] = {
-                    ...newGrid[rowIndex][colIndex],
-                    value: (newGrid[rowIndex][colIndex].value + 1) % (dimension + 1) || 1
+                newBoard[rowIndex][colIndex] = {
+                    ...newBoard[rowIndex][colIndex],
+                    value: (newBoard[rowIndex][colIndex].value + 1) % (dimension + 1) || 1
                 };
             }
 
-            setGrid(newGrid);
-            // transform the grid to a 2D array
-            const transformedGrid = newGrid.map(row => row.map(cell => cell.value));
-            const solved = isSudokuSolved(transformedGrid);
+            setBoard(newBoard);
+            console.log('Updated board:', newBoard);
+            
+            // Check if the Sudoku is solved
+            const solved = isSudokuSolved(newBoard);
             if (solved) {
-                alert('Sudoku solved!');
+                onSolved(); // Notify the App component
             }
         }
     }
 
-    function validateGrid(grid) {
-        // check if the grid is valid
-        // check if the grid is a square
-        const isSquare = grid.every(row => row.length === grid.length);
-        if (!isSquare) {
-            throw new Error('Grid must be a square');
-        }
 
-        // check if the grid is not empty
-        const isEmpty = grid.every(row => row.every(cell => cell.value === null));
-        if (isEmpty) {
-            throw new Error('Grid must not be empty');
-        }
-
-        // check if the grid has duplicates
-        const hasDuplicates = grid.some(row => {
-            const values = row.map(cell => cell.value).filter(value => value !== null);
-            return new Set(values).size !== values.length;
-        });
-        if (hasDuplicates) {
-            throw new Error('Grid has duplicates');
-        }
-    }
 
     // if dimension not in range 1-9, throw error
     if (dimension < 1 || dimension > 9) {
@@ -74,7 +60,7 @@ export default function Board({ dimension = 9, data }) {
         <div className='flex flex-col items-center justify-center h-screen'>
             <div className="border-2 border-gray-600 bg-white">
                 {
-                    grid.map((row, rowIndex) => (
+                    board.map((row, rowIndex) => (
                         <div key={rowIndex} className='flex'>
                             {row.map((cell, colIndex) => (
                                 <Square
