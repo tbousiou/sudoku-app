@@ -24,13 +24,17 @@ A simple Sudoku app built with React and Vite. This app allows users to play Sud
    git clone https://github.com/your-username/sudoku-app.git
 
 2. Navigate to the project directory
+   ```bash
+   cd sudoku-app    
 
 3. Install dependencies
+   ```bash
+   npm install
 
 4. Start the development server:
    ```bash
    npm run dev
-   ```
+
 5. Open your browser and go to the URL provided by Vite (e.g., `http://localhost:5173`).
 
 ## How to Play
