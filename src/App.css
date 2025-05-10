@@ -1,8 +1,7 @@
+
 dialog::backdrop {
   background: rgba(0, 0, 0, 0.5);
 }
-
-
 
 .solution-cell:nth-child(3n) {
   border-right: 1px solid #333;
