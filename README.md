@@ -47,4 +47,4 @@ A simple Sudoku app built with React and Vite. This app allows users to play Sud
 
 ## License
 
-This project is licensed under the [MIT License](LICENSE).
+This project is licensed under the MIT License.
