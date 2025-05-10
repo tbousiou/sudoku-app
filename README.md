@@ -15,7 +15,7 @@ A simple Sudoku app built with React and Vite. This app allows users to play Sud
 - **React**: For building the user interface.
 - **Vite**: For fast development and build tooling.
 - **Tailwind CSS**: For styling the app.
-- **sudoku-gen**: For generating Sudoku puzzles.
+- [**sudoku-gen**](https://github.com/petewritescode/sudoku-gen): Package for generating Sudoku puzzles.
 
 ## How to Run the App
 
