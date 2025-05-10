@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 
-export default function Puzzle({ data }) {
+export default function Solution({ data }) {
 
     const [puzzle, setPuzzle] = useState(data.puzzle);
     const [difficulty, setDifficulty] = useState(data.difficulty);
@@ -17,26 +17,18 @@ export default function Puzzle({ data }) {
     const solutionRows = solution ? solution.match(/.{1,9}/g) : [];
 
     return (
-        <div className="puzzle-container">
-          <h2 className="text-lg font-bold mb-2">Puzzle Information</h2>
-          <div>
-            <strong>Puzzle:</strong> {puzzle}
-          </div>
-          <div>
-            <strong>Difficulty:</strong> {difficulty}
-          </div>
-          <h3 className="text-lg font-bold mt-4">Solution</h3>
-          <div className="solution-grid">
+        
+          <div className="grid grid-rows-9 my-2 mx-auto border-2 border-gray-800 w-fit">
             {solutionRows.map((row, rowIndex) => (
-              <div key={rowIndex} className="solution-row">
+              <div key={rowIndex} className="solution-row grid grid-cols-9 ">
                 {row.split('').map((cell, cellIndex) => (
-                  <div key={cellIndex} className="solution-cell">
+                  <div key={cellIndex} className="solution-cell w-[40px] h-[40px] flex items-center justify-center border border-gray-300 text-[16px] font-bold bg-gray-100">
                     {cell}
                   </div>
                 ))}
               </div>
             ))}
           </div>
-        </div>
+        
       );
     }

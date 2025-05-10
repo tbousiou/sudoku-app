@@ -47,6 +47,18 @@ export default function Board({ dimension = 9, initialSudoku, onSolved }) {
         }
     }
 
+    function handleRightClick(e, rowIndex, colIndex) {
+        e.preventDefault();
+        if (!board[rowIndex][colIndex].isInitial) {
+            const newBoard = [...board];
+            newBoard[rowIndex][colIndex] = {
+                ...newBoard[rowIndex][colIndex],
+                value: null
+            };
+            setBoard(newBoard);
+        }
+    }
+
 
 
     // if dimension not in range 1-9, throw error
@@ -57,7 +69,7 @@ export default function Board({ dimension = 9, initialSudoku, onSolved }) {
 
 
     return (
-        <div className='flex flex-col items-center justify-center h-screen'>
+        <div className='flex flex-col items-center mt-8 '>
             <div className="border-2 border-gray-600 bg-white">
                 {
                     board.map((row, rowIndex) => (
@@ -67,6 +79,7 @@ export default function Board({ dimension = 9, initialSudoku, onSolved }) {
                                     key={colIndex}
                                     value={cell.value}
                                     handleClick={!cell.isInitial ? () => handleClick(rowIndex, colIndex) : undefined}
+                                    handleRightClick={(e) => handleRightClick(e, rowIndex, colIndex)}
                                     isInitial={cell.isInitial}
                                     rowIndex={rowIndex}
                                     colIndex={colIndex}

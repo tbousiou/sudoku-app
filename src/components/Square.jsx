@@ -1,6 +1,6 @@
 import React from 'react'
 
-function Square({ value, handleClick, isInitial,  rowIndex, colIndex }) {
+function Square({ value, handleClick, handleRightClick, isInitial,  rowIndex, colIndex }) {
     // Determine if this square should have special borders
     const topBorder = rowIndex % 3 === 0 ? 'border-t-2 border-t-black' : '';
     const leftBorder = colIndex % 3 === 0 ? 'border-l-2 border-l-black' : '';
@@ -10,6 +10,7 @@ function Square({ value, handleClick, isInitial,  rowIndex, colIndex }) {
     return (
         <div 
             onClick={handleClick}
+            onContextMenu={handleRightClick}
             
             className={`
                 w-12 h-12 
