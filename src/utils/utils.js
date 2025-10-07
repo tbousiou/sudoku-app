@@ -35,7 +35,7 @@ export function transformToBoard(sudokuData) {
 
 export function isSudokuSolved(board) {
   // console.log('Checking if Sudoku is solved...');
-  console.log('Board:', board);
+  // console.log('Board:', board);
 
   // Extract the values from the grid objects
   const extractValues = (arr) => arr.map(cell => cell.value);
@@ -48,7 +48,7 @@ export function isSudokuSolved(board) {
   // Check each row for uniqueness and valid numbers (1-9)
   for (const row of board) {
     const rowValues = extractValues(row);
-    console.log('Row Values:', rowValues);
+    // console.log('Row Values:', rowValues);
     if (!isValidSet(rowValues)) {
       return false;
     }

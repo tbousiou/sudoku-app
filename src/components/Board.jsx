@@ -1,4 +1,3 @@
-import React from 'react'
 import Square from './Square'
 import { useState, useEffect } from 'react';
 import { transformToBoard, isSudokuSolved } from '../utils/utils.js';
@@ -12,10 +11,8 @@ export default function Board({ dimension = 9, initialSudoku, onSolved }) {
 
     // Update the board state whenever the `initial_sudoku` prop changes
     useEffect(() => {
-        //console.log('Received new sudoku puzzle:', board);
         const newBoard = transformToBoard(initialSudoku);
         setBoard(newBoard);
-        // console.log('Updated board:', newBoard);
     }, [initialSudoku]);
 
     function handleClick(rowIndex, colIndex) {
@@ -38,7 +35,7 @@ export default function Board({ dimension = 9, initialSudoku, onSolved }) {
 
             setBoard(newBoard);
             console.log('Updated board:', newBoard);
-            
+
             // Check if the Sudoku is solved
             const solved = isSudokuSolved(newBoard);
             if (solved) {
@@ -59,14 +56,10 @@ export default function Board({ dimension = 9, initialSudoku, onSolved }) {
         }
     }
 
-
-
     // if dimension not in range 1-9, throw error
     if (dimension < 1 || dimension > 9) {
         throw new Error('Dimension must be between 1 and 9')
     }
-
-
 
     return (
         <div className='flex flex-col items-center mt-8 '>
@@ -89,9 +82,6 @@ export default function Board({ dimension = 9, initialSudoku, onSolved }) {
                     ))
                 }
             </div>
-
-
         </div>
-
     )
 }

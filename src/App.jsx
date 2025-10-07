@@ -1,11 +1,10 @@
-import { use, useRef, useState } from 'react'
+import { useRef, useState } from 'react'
 import { getSudoku } from 'sudoku-gen';
 
 import Board from './components/Board'
 import Solution from './components/Solution'
 
 import './App.css'
-
 
 function App() {
 
@@ -15,10 +14,10 @@ function App() {
   const [isSolved, setIsSolved] = useState(false);
   const solutionDialogRef = useRef(null);
 
-  //console.log(sudoku);
 
   function newGame() {
     const newSudoku = getSudoku(difficulty);
+    console.log('New Sudoku:', newSudoku);
     setSudoku(newSudoku);
     setInitialSudoku(newSudoku); // Update the initial state
     setIsSolved(false);
@@ -26,7 +25,7 @@ function App() {
 
   // Function to restart the game
   function restartGame() {
-    // setSudoku(initialSudoku); // Reset the game to the initial state
+    // Reset the game to the initial state
     setSudoku({ ...initialSudoku }); // Create a new reference, to force re-render
     setIsSolved(false);
   }
@@ -37,14 +36,12 @@ function App() {
   }
 
   function showSolution() {
-    // setIsDialogOpen(true); // Open the dialog
     if (solutionDialogRef.current) {
       solutionDialogRef.current.showModal(); // Show the dialog
     }
   }
 
   function closeDialog() {
-    // setIsDialogOpen(false); // Close the dialog
     if (solutionDialogRef.current) {
       solutionDialogRef.current.close(); // Close the dialog
     }
@@ -63,7 +60,6 @@ function App() {
 
             <select name="difficulty" id="" onChange={(e) => {
               setDifficulty(e.target.value);
-              // console.log(e.target.value);
             }}>
               <option value="easy">Easy</option>
               <option value="medium">Medium</option>
@@ -74,7 +70,7 @@ function App() {
             <button className='bg-blue-500 text-white p-2 rounded-md cursor-pointer' onClick={restartGame} >↩️ Restart</button>
             <button className='bg-blue-500 text-white p-2 rounded-md cursor-pointer' onClick={showSolution}>💡 Show solution</button>
           </div>
-          
+
           {isSolved && (
             <div className='flex justify-center mt-4'>
               <h2 className='text-green-500 text-2xl'>Sudoku Solved!</h2>
@@ -82,7 +78,7 @@ function App() {
           )}
           <Board initialSudoku={sudoku} onSolved={handleSolved} />
           <dialog
-            id = "solution-dialog"
+            id="solution-dialog"
             ref={solutionDialogRef}
             className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white rounded-lg shadow-lg p-6 w-11/12 max-w-md"
           >
@@ -100,13 +96,9 @@ function App() {
             <p><span className='font-bold'>Left-click</span> on a cell to fill it with a number. <span className='font-bold'>Right-click </span>to clear the cell.</p>
             <p>Choose <span className='font-bold'>difficulty</span> and then use the <span className="font-bold">"New Game"</span> button to generate a new Sudoku puzzle.</p>
             <p>Use the <span className="font-bold">"Restart"</span> button to reset the current puzzle.</p>
-
           </div>
         </main>
-
-
       </div>
-
     </>
   )
 }

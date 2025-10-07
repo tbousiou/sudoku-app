@@ -1,4 +1,3 @@
-import React from 'react'
 
 function Square({ value, handleClick, handleRightClick, isInitial,  rowIndex, colIndex }) {
     // Determine if this square should have special borders
@@ -11,7 +10,6 @@ function Square({ value, handleClick, handleRightClick, isInitial,  rowIndex, co
         <div 
             onClick={handleClick}
             onContextMenu={handleRightClick}
-            
             className={`
                 w-12 h-12 
                 border border-b-gray-600
